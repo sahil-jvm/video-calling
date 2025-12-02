@@ -29,7 +29,7 @@ io.on('connection', (socket) => {
   // User sets their location and starts searching
   socket.on('find-match', (locationData) => {
     console.log('User searching for match:', socket.id, locationData);
-    
+
     onlineUsers.set(socket.id, {
       socketId: socket.id,
       location: locationData,
@@ -68,7 +68,7 @@ io.on('connection', (socket) => {
   socket.on('skip', () => {
     console.log('User skipping:', socket.id);
     disconnectUser(socket.id);
-    
+
     // Get user's location preference
     const user = onlineUsers.get(socket.id);
     if (user) {
@@ -90,38 +90,49 @@ io.on('connection', (socket) => {
 
 function findMatch(socket, locationData) {
   const currentUserId = socket.id;
-  
+
   // Remove from waiting if already there
   waitingUsers.delete(currentUserId);
-  
+
+  console.log('=== FINDING MATCH ===');
+  console.log('Current user:', currentUserId);
+  console.log('Location:', JSON.stringify(locationData));
+  console.log('Waiting users count:', waitingUsers.size);
+  console.log('Waiting users:', Array.from(waitingUsers.keys()));
+
   // Look for a waiting user with matching location
   let matchFound = false;
-  
+
   for (const [waitingUserId, waitingUserData] of waitingUsers.entries()) {
     // Skip if it's the same user
     if (waitingUserId === currentUserId) continue;
-    
+
+    console.log('Checking match with:', waitingUserId);
+    console.log('Their location:', JSON.stringify(waitingUserData.location));
+
     // Check if locations match
     if (locationsMatch(locationData, waitingUserData.location)) {
       // Match found!
-      console.log('Match found:', currentUserId, 'with', waitingUserId);
-      
+      console.log('✅ MATCH FOUND:', currentUserId, 'with', waitingUserId);
+
       // Remove from waiting
       waitingUsers.delete(waitingUserId);
-      
+
       // Store active connection
       activeConnections.set(currentUserId, waitingUserId);
       activeConnections.set(waitingUserId, currentUserId);
-      
+
       // Notify both users
       socket.emit('match-found', { partnerId: waitingUserId });
       io.to(waitingUserId).emit('match-found', { partnerId: currentUserId });
-      
+
       matchFound = true;
       break;
+    } else {
+      console.log('❌ No match - locations don\'t match');
     }
   }
-  
+
   if (!matchFound) {
     // Add to waiting list
     waitingUsers.set(currentUserId, {
@@ -129,9 +140,10 @@ function findMatch(socket, locationData) {
       location: locationData,
       timestamp: Date.now()
     });
-    
+
     socket.emit('waiting', { message: 'Searching for a match...' });
-    console.log('User added to waiting list:', currentUserId);
+    console.log('⏳ User added to waiting list:', currentUserId);
+    console.log('Total waiting users now:', waitingUsers.size);
   }
 }
 
@@ -140,27 +152,27 @@ function locationsMatch(loc1, loc2) {
   if (loc1.country === 'any' || loc2.country === 'any') {
     return true;
   }
-  
+
   // Match by country
   if (loc1.country !== loc2.country) {
     return false;
   }
-  
+
   // If either selected "Any" state/city within the country, match them
   if (loc1.state === 'any' || loc2.state === 'any') {
     return true;
   }
-  
+
   // Match by state
   if (loc1.state !== loc2.state) {
     return false;
   }
-  
+
   // If either selected "Any" city within the state, match them
   if (loc1.city === 'any' || loc2.city === 'any') {
     return true;
   }
-  
+
   // Match by city
   return loc1.city === loc2.city;
 }
@@ -168,19 +180,19 @@ function locationsMatch(loc1, loc2) {
 function disconnectUser(userId) {
   // Find partner if in active connection
   const partnerId = activeConnections.get(userId);
-  
+
   if (partnerId) {
     // Notify partner
     io.to(partnerId).emit('partner-disconnected');
-    
+
     // Remove both from active connections
     activeConnections.delete(userId);
     activeConnections.delete(partnerId);
   }
-  
+
   // Remove from waiting list
   waitingUsers.delete(userId);
-  
+
   // Remove from online users
   onlineUsers.delete(userId);
 }
