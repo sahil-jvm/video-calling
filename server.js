@@ -122,9 +122,9 @@ function findMatch(socket, locationData) {
       activeConnections.set(currentUserId, waitingUserId);
       activeConnections.set(waitingUserId, currentUserId);
 
-      // Notify both users
-      socket.emit('match-found', { partnerId: waitingUserId });
-      io.to(waitingUserId).emit('match-found', { partnerId: currentUserId });
+      // Notify both users - assign initiator role to the active user
+      socket.emit('match-found', { partnerId: waitingUserId, initiator: true });
+      io.to(waitingUserId).emit('match-found', { partnerId: currentUserId, initiator: false });
 
       matchFound = true;
       break;

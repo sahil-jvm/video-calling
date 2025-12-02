@@ -1,5 +1,6 @@
 // ---------------------------------------------
 // WebRTC connection management
+// Updated: 2025-12-02
 // ---------------------------------------------
 let localStream;
 let remoteStream;
@@ -103,25 +104,33 @@ function createPeerConnection() {
 // ---------------------------------------------
 // Match Found → Create Offer (Initiator)
 // ---------------------------------------------
-async function handleMatchFound(partnerSocketId) {
+async function handleMatchFound(partnerSocketId, isInitiator) {
     partnerId = partnerSocketId;
+    console.log('Match found with:', partnerId, 'Initiator:', isInitiator);
 
     createPeerConnection();
 
-    localStream.getTracks().forEach(track => {
-        peerConnection.addTrack(track, localStream);
-    });
+    if (localStream) {
+        localStream.getTracks().forEach(track => {
+            peerConnection.addTrack(track, localStream);
+        });
+    }
 
-    try {
-        const offer = await peerConnection.createOffer();
-        await peerConnection.setLocalDescription(offer);
+    if (isInitiator) {
+        try {
+            console.log('I am the initiator, creating offer...');
+            const offer = await peerConnection.createOffer();
+            await peerConnection.setLocalDescription(offer);
 
-        socket.emit('offer', { offer, to: partnerId });
+            socket.emit('offer', { offer, to: partnerId });
 
-        console.log('Offer sent to', partnerId);
+            console.log('Offer sent to', partnerId);
 
-    } catch (error) {
-        console.error('Error creating offer:', error);
+        } catch (error) {
+            console.error('Error creating offer:', error);
+        }
+    } else {
+        console.log('I am the receiver, waiting for offer...');
     }
 }
 

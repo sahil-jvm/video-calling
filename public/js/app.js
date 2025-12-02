@@ -140,7 +140,7 @@ function connectSocket() {
         console.log('Match found:', data);
         updateStatus('Connected');
         showWaitingOverlay(false);
-        handleMatchFound(data.partnerId);
+        handleMatchFound(data.partnerId, data.initiator);
     });
 
     socket.on('partner-disconnected', () => {
