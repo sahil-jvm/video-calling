@@ -44,14 +44,18 @@ async function initializeFilters(stream) {
         await tf.ready();
         console.log('TensorFlow.js ready');
 
-        // Load face detection model
-        model = await faceLandmarksDetection.load(
-            faceLandmarksDetection.SupportedPackages.mediapipeFacemesh,
-            { maxFaces: 1 }
-        );
-        console.log('Face detection model loaded successfully!');
+        // Load face detection model - check if library exists
+        if (typeof faceLandmarksDetection !== 'undefined') {
+            model = await faceLandmarksDetection.load(
+                faceLandmarksDetection.SupportedPackages.mediapipeFacemesh,
+                { maxFaces: 1 }
+            );
+            console.log('Face detection model loaded successfully!');
+        } else {
+            console.log('Face landmarks library not loaded - filters will use CSS only');
+        }
     } catch (error) {
-        console.log('Face detection model not available, using enhanced CSS filters:', error);
+        console.log('Face detection not available:', error.message);
     }
 }
 
