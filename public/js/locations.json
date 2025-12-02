@@ -1,0 +1,217 @@
+{
+    "countries": [
+        {
+            "id": "any",
+            "name": "Any Location",
+            "states": []
+        },
+        {
+            "id": "india",
+            "name": "India",
+            "states": [
+                {
+                    "id": "any",
+                    "name": "Any State",
+                    "cities": []
+                },
+                {
+                    "id": "haryana",
+                    "name": "Haryana",
+                    "cities": [
+                        {
+                            "id": "any",
+                            "name": "Any City"
+                        },
+                        {
+                            "id": "faridabad",
+                            "name": "Faridabad"
+                        },
+                        {
+                            "id": "gurgaon",
+                            "name": "Gurgaon"
+                        },
+                        {
+                            "id": "chandigarh",
+                            "name": "Chandigarh"
+                        }
+                    ]
+                },
+                {
+                    "id": "maharashtra",
+                    "name": "Maharashtra",
+                    "cities": [
+                        {
+                            "id": "any",
+                            "name": "Any City"
+                        },
+                        {
+                            "id": "mumbai",
+                            "name": "Mumbai"
+                        },
+                        {
+                            "id": "pune",
+                            "name": "Pune"
+                        },
+                        {
+                            "id": "nagpur",
+                            "name": "Nagpur"
+                        }
+                    ]
+                },
+                {
+                    "id": "delhi",
+                    "name": "Delhi",
+                    "cities": [
+                        {
+                            "id": "any",
+                            "name": "Any City"
+                        },
+                        {
+                            "id": "new-delhi",
+                            "name": "New Delhi"
+                        },
+                        {
+                            "id": "south-delhi",
+                            "name": "South Delhi"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "usa",
+            "name": "United States",
+            "states": [
+                {
+                    "id": "any",
+                    "name": "Any State",
+                    "cities": []
+                },
+                {
+                    "id": "california",
+                    "name": "California",
+                    "cities": [
+                        {
+                            "id": "any",
+                            "name": "Any City"
+                        },
+                        {
+                            "id": "los-angeles",
+                            "name": "Los Angeles"
+                        },
+                        {
+                            "id": "san-francisco",
+                            "name": "San Francisco"
+                        },
+                        {
+                            "id": "san-diego",
+                            "name": "San Diego"
+                        }
+                    ]
+                },
+                {
+                    "id": "new-york",
+                    "name": "New York",
+                    "cities": [
+                        {
+                            "id": "any",
+                            "name": "Any City"
+                        },
+                        {
+                            "id": "new-york-city",
+                            "name": "New York City"
+                        },
+                        {
+                            "id": "buffalo",
+                            "name": "Buffalo"
+                        }
+                    ]
+                },
+                {
+                    "id": "texas",
+                    "name": "Texas",
+                    "cities": [
+                        {
+                            "id": "any",
+                            "name": "Any City"
+                        },
+                        {
+                            "id": "houston",
+                            "name": "Houston"
+                        },
+                        {
+                            "id": "dallas",
+                            "name": "Dallas"
+                        },
+                        {
+                            "id": "austin",
+                            "name": "Austin"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "uk",
+            "name": "United Kingdom",
+            "states": [
+                {
+                    "id": "any",
+                    "name": "Any Region",
+                    "cities": []
+                },
+                {
+                    "id": "england",
+                    "name": "England",
+                    "cities": [
+                        {
+                            "id": "any",
+                            "name": "Any City"
+                        },
+                        {
+                            "id": "london",
+                            "name": "London"
+                        },
+                        {
+                            "id": "manchester",
+                            "name": "Manchester"
+                        },
+                        {
+                            "id": "birmingham",
+                            "name": "Birmingham"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "canada",
+            "name": "Canada",
+            "states": [
+                {
+                    "id": "any",
+                    "name": "Any Province",
+                    "cities": []
+                },
+                {
+                    "id": "ontario",
+                    "name": "Ontario",
+                    "cities": [
+                        {
+                            "id": "any",
+                            "name": "Any City"
+                        },
+                        {
+                            "id": "toronto",
+                            "name": "Toronto"
+                        },
+                        {
+                            "id": "ottawa",
+                            "name": "Ottawa"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

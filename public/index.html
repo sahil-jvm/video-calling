@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RandomChat - Connect with People Worldwide</title>
+    <meta name="description" content="Connect with random people worldwide through video chat. Filter by location and apply fun face filters.">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landing-page" class="landing-page">
+        <div class="background-gradient"></div>
+        <div class="landing-content">
+            <div class="logo-section">
+                <h1 class="logo">RandomChat</h1>
+                <p class="tagline">Connect with people worldwide, instantly</p>
+            </div>
+
+            <div class="location-selector-card">
+                <h2>Choose Your Location Preference</h2>
+                <p class="subtitle">Connect with people from specific locations or anywhere in the world</p>
+                
+                <div class="form-group">
+                    <label for="country-select">Country</label>
+                    <select id="country-select" class="custom-select">
+                        <option value="">Loading...</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="state-group" style="display: none;">
+                    <label for="state-select">State / Region</label>
+                    <select id="state-select" class="custom-select">
+                        <option value="">Select State</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="city-group" style="display: none;">
+                    <label for="city-select">City</label>
+                    <select id="city-select" class="custom-select">
+                        <option value="">Select City</option>
+                    </select>
+                </div>
+
+                <button id="start-chat-btn" class="primary-btn">
+                    <span>Start Chatting</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Global Connections</h3>
+                    <p>Meet people from around the world</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📍</div>
+                    <h3>Location Filter</h3>
+                    <p>Choose specific regions or go global</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✨</div>
+                    <h3>Face Filters</h3>
+                    <p>Fun filters to enhance your chat</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Chat Interface -->
+    <div id="chat-interface" class="chat-interface" style="display: none;">
+        <div class="chat-header">
+            <div class="header-left">
+                <h1 class="logo-small">RandomChat</h1>
+                <span id="status-indicator" class="status-indicator">Connecting...</span>
+            </div>
+            <div class="header-right">
+                <button id="disconnect-btn" class="icon-btn" title="Disconnect">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="video-container">
+            <video id="remote-video" class="remote-video" autoplay playsinline></video>
+            <video id="local-video" class="local-video" autoplay muted playsinline></video>
+            
+            <div class="video-overlay">
+                <div id="waiting-message" class="waiting-message">
+                    <div class="spinner"></div>
+                    <p>Searching for someone to chat with...</p>
+                </div>
+            </div>
+
+            <canvas id="filter-canvas" style="display: none;"></canvas>
+        </div>
+
+        <div class="controls-panel">
+            <div class="filter-controls">
+                <h3>Face Filters</h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="none">
+                        <span class="filter-icon">🎭</span>
+                        <span>None</span>
+                    </button>
+                    <button class="filter-btn" data-filter="child">
+                        <span class="filter-icon">👶</span>
+                        <span>Child</span>
+                    </button>
+                    <button class="filter-btn" data-filter="girl">
+                        <span class="filter-icon">👧</span>
+                        <span>Girl</span>
+                    </button>
+                    <button class="filter-btn" data-filter="blur">
+                        <span class="filter-icon">🌫️</span>
+                        <span>Blur</span>
+                    </button>
+                    <button class="filter-btn" data-filter="vintage">
+                        <span class="filter-icon">📷</span>
+                        <span>Vintage</span>
+                    </button>
+                    <button class="filter-btn" data-filter="cool">
+                        <span class="filter-icon">❄️</span>
+                        <span>Cool</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="action-controls">
+                <button id="skip-btn" class="secondary-btn">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>Skip</span>
+                </button>
+                <button id="new-chat-btn" class="primary-btn">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 5V15M5 10H15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>New Chat</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.11.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@1.0.2"></script>
+    <script src="/js/filters.js"></script>
+    <script src="/js/webrtc.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>

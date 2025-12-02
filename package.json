@@ -1,0 +1,23 @@
+{
+  "name": "random-video-chat",
+  "version": "1.0.0",
+  "description": "Random video chat website with location filtering and face filters",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "video-chat",
+    "webrtc",
+    "socket.io",
+    "random-chat"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.6.1",
+    "cors": "^2.8.5"
+  }
+}
